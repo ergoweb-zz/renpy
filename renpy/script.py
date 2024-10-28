@@ -1016,18 +1016,14 @@ class Script(object):
                         code = renpy.python.py_compile_eval_bytecode(i.source, filename=i.location[0], lineno=i.location[1], py=i.py)
 
                 except SyntaxError as e:
-
-                    text = e.text
-
-                    if text is None:
-                        text = ''
-
+                    assert e.filename is not None
+                    assert e.lineno is not None
                     pem = renpy.parser.ParseError(
-                        filename=e.filename,
-                        number=e.lineno,
-                        msg=e.msg,
-                        line=text,
-                        pos=e.offset)
+                        e.msg,
+                        e.filename,
+                        e.lineno, e.offset,
+                        e.text,
+                        e.end_lineno, e.end_offset)
 
                     renpy.parser.parse_errors.append(pem.message)
 
