@@ -27,7 +27,7 @@ import zipfile
 import tarfile
 import shutil
 import subprocess
-import renpy
+import _renpy
 import stat
 
 VERSION = 1
